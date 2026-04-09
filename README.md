@@ -14,9 +14,7 @@ The Session History panel (`HistoryPanel`) is implemented but hidden by default.
 
 ## Layout
 
-The page shell uses lighter top padding, a top-aligned `.main-area` column (header, card, zone legend), and a tighter header margin so the hero block sits higher. The card has a fixed height (`460px`) to give the speaking flow more vertical room.
-
-The main card uses top alignment so the **Your Topic** label and question stay fixed on *revealed* and *speaking*; the *done* results view omits the label to save vertical space, showing the prompt, timer, and feedback only.
+The page shell uses a centered `.main-area` column (header, card, zone legend) with a fixed-height main card (`460px`) for consistent vertical room. The card uses flexbox (`justify-content: center`) so each state’s block—*ready* (prompt + Show Question), *revealed* (Your Topic + Begin), *speaking*, and *done*—is vertically centered between the card’s top and bottom rules. The *done* results view omits the topic label to save vertical space, showing the prompt, timer, and feedback only.
 
 ## Colors
 

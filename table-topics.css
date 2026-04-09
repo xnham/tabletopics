@@ -74,19 +74,18 @@
 
 /* ── Main Card ── */
 
-/* Top-aligned so "Your Topic" + question stay fixed while the action area
-   (Begin / speaking controls / results) changes height between states. */
+/* Vertically centers each state’s content between the card’s top and bottom rules. */
 .card {
   width: 100%;
   max-width: 560px;
-  padding: 60px 40px 40px;
+  padding: 40px;
   text-align: center;
   border-top: 2px solid var(--color-text);
   border-bottom: 1px solid var(--color-border);
   height: 460px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
   background: transparent;
 }
@@ -104,9 +103,10 @@
 /* ── Ready State ── */
 
 .ready-section {
-  /* Extra top offset so the short "ready" copy sits closer to vertical balance
-     in the fixed-height card (topic states use the card’s padding only). */
-  padding: 72px 0 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .ready-section .label {
