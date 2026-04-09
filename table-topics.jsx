@@ -332,7 +332,6 @@ export default function TableTopics() {
 
           {state === "done" && (
             <div className="done-section">
-              <div className="label">Your Topic</div>
               <p className="question question--small question--faded">{question}</p>
               <TimerBar elapsed={elapsed} />
               <div className="time-display" style={{ color: getZoneColor(zone) }}>

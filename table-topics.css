@@ -122,8 +122,7 @@
 /* ── Revealed / Speaking States ── */
 
 .revealed-section .label,
-.speaking-section .label,
-.done-section .label {
+.speaking-section .label {
   margin-bottom: 24px;
 }
 
