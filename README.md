@@ -10,6 +10,10 @@ Use the question-mark help icon in the top-right corner to open the About dialog
 
 The tab icon is `public/favicon.png`. The in-app mark in the top-left uses `public/tabletopicslogo.png`. Vite serves everything in `public/` at the site root (`/favicon.png`, `/tabletopicslogo.png`). Update those files and rebuild as needed.
 
+## Analytics (Vercel)
+
+The app uses [Vercel Web Analytics](https://vercel.com/docs/analytics) via `@vercel/analytics`: `<Analytics />` is mounted in `src/main.jsx`. Enable Web Analytics on the Vercel project, deploy, then open the live URL; page views appear in the project’s Analytics tab (give it a minute if nothing shows at first). Local `npm run dev` does not send production analytics. Use an ad blocker–free browser when verifying.
+
 ## Scripts
 
 - `npm run dev` — start Vite dev server
