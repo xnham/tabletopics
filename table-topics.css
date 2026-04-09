@@ -1,0 +1,425 @@
+/* ── Fonts ── */
+/* Loaded via <link> in index.html:
+   Playfair Display, Source Serif 4, IBM Plex Mono */
+
+/* ── Reset & Base ── */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px;
+  background: #FFFFFF;
+  color: #121212;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.main-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 48px);
+  flex-shrink: 0;
+}
+
+/* ── Header ── */
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.header-overline {
+  font-family: 'Helvetica';
+  font-size: 12px;
+  color: #515151;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.header-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 60px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -1px;
+  color: #121212;
+  line-height: 1;
+}
+
+.header-rule {
+  width: 80px;
+  height: 1px;
+  background: #121212;
+  margin: 16px auto 0;
+}
+
+/* ── Main Card ── */
+
+/* Top-aligned so "Your Topic" + question stay fixed while the action area
+   (Begin / speaking controls / results) changes height between states. */
+.card {
+  width: 100%;
+  max-width: 560px;
+  padding: 60px 40px 40px;
+  text-align: center;
+  border-top: 2px solid #121212;
+  border-bottom: 1px solid #e0e0e0;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* ── Labels ── */
+
+.label {
+  font-size: 14px;
+  font-family: 'Helvetica';
+  color: #515151;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+}
+
+/* ── Ready State ── */
+
+.ready-section {
+  /* Extra top offset so the short "ready" copy sits closer to vertical balance
+     in the fixed-height card (topic states use the card’s padding only). */
+  padding: 72px 0 24px;
+}
+
+.ready-section .label {
+  margin-bottom: 32px;
+}
+
+/* ── Question ── */
+
+.question {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  line-height: 1.55;
+  color: #121212;
+  margin: 0;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.question--small {
+  font-size: 20px;
+}
+
+.question--faded {
+  opacity: 0.4;
+}
+
+/* ── Revealed / Speaking States ── */
+
+.revealed-section .label,
+.speaking-section .label,
+.done-section .label {
+  margin-bottom: 24px;
+}
+
+.revealed-section .btn-wrap {
+  margin-top: 40px;
+}
+
+.speaking-section .btn-wrap {
+  margin-top: 8px;
+}
+
+.done-section .btn-wrap {
+  margin-top: 36px;
+}
+
+/* ── Buttons ── */
+
+.btn {
+  padding: 12px 40px;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: 'Helvetica';
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn--primary {
+  border: 2px solid #385461;
+  background: #385461;
+  color: #faf9f6;
+}
+
+.btn--stop {
+  background: transparent;
+  border: 1px solid #999;
+  color: #666;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+/* ── Timer Bar ── */
+
+.timer-bar {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.timer-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-family: 'Helvetica';
+  color: #999;
+  margin-bottom: 8px;
+  padding: 0 2px;
+  letter-spacing: 0.5px;
+}
+
+.timer-bar-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+  background: #e0e0e0;
+}
+
+.timer-bar-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: #bbb;
+}
+
+.timer-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: width 0.2s ease-out;
+}
+
+.timer-bar-goal {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+  font-size: 9px;
+  font-family: 'Helvetica';
+  color: #999;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Speaking Indicator ── */
+
+.speaking-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+.speaking-indicator-bars {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  height: 32px;
+}
+
+.speaking-indicator-bar {
+  width: 2px;
+  border-radius: 1px;
+  background: #121212;
+}
+
+.speaking-indicator-label {
+  font-family: 'Helvetica';
+  font-size: 11px;
+  color: #999;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Done State ── */
+
+.time-display {
+  font-family: 'Helvetica';
+  font-size: 48px;
+  font-weight: 600;
+  margin-top: 28px;
+  letter-spacing: 3px;
+}
+
+.feedback {
+  margin-top: 8px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  color: #666;
+  font-style: italic;
+}
+
+/* ── Zone Legend ── */
+
+.zone-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.zone-legend--hidden {
+  visibility: hidden;
+}
+
+.zone-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.zone-legend-dot {
+  width: 12px;
+  height: 12px;
+}
+
+.zone-legend-dot--round {
+  border-radius: 50%;
+}
+
+.zone-legend-label {
+  font-family: 'Helvetica';
+  font-size: 12px;
+  color: #515151;
+  letter-spacing: 0.5px;
+}
+
+/* ── History Panel ── */
+
+.history {
+  margin-top: 56px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #121212;
+  padding-bottom: 8px;
+}
+
+.history-title {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  color: #121212;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.history-clear-btn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #999;
+  color: #999;
+  font-size: 11px;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Helvetica';
+  letter-spacing: 0.5px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.history-time {
+  font-family: 'Helvetica';
+  font-size: 14px;
+  min-width: 44px;
+  letter-spacing: 0.5px;
+}
+
+.history-time--highlight {
+  color: #121212;
+  font-weight: 600;
+}
+
+.history-time--muted {
+  color: #999;
+  font-weight: 400;
+}
+
+.history-question {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 14px;
+  color: #444;
+  flex: 1;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-zone {
+  font-family: 'Helvetica';
+  font-size: 9px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.history-summary {
+  margin-top: 16px;
+  font-family: 'Helvetica';
+  font-size: 11px;
+  color: #999;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ── Zone Colors (used as inline styles for dynamic values) ── */
+/* --zone-under: #FF8A04 */
+/* --zone-okay:  #A7E12A */
+/* --zone-perfect: #00BC26 */
+/* --zone-over:  #FF8A04 */
+
+/* ── Keyframes ── */
+
+@keyframes pulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.04); }
+}
+
+@keyframes speakBar {
+  0%, 100% { height: 4px; }
+  50% { height: 28px; }
+}

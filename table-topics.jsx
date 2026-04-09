@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
+import "./table-topics.css";
 
 const QUESTIONS = [
   "What is the best piece of advice you've ever received?",
@@ -143,15 +144,11 @@ function getZone(ms) {
 }
 
 function getZoneLabel(zone) {
-  return { under: "Under 1:00", okay: "1:00 – 1:30", perfect: "1:30 – 2:00 ★", over: "Over 2:00" }[zone];
+  return { under: "Under 1:00", okay: "1:00 – 1:30", perfect: "1:30 – 2:00", over: "Over 2:00" }[zone];
 }
 
 function getZoneColor(zone) {
-  return { under: "#d44055", okay: "#c48a12", perfect: "#1a9d55", over: "#d44055" }[zone];
-}
-
-function getZoneBg(zone) {
-  return { under: "rgba(212,64,85,0.08)", okay: "rgba(196,138,18,0.08)", perfect: "rgba(26,157,85,0.08)", over: "rgba(212,64,85,0.08)" }[zone];
+  return { under: "#FF8A04", okay: "#A7E12A", perfect: "#00BC26", over: "#FF8A04" }[zone];
 }
 
 const TOTAL_BAR_DURATION = 150;
@@ -162,32 +159,24 @@ function TimerBar({ elapsed }) {
   const zone90 = (90 / TOTAL_BAR_DURATION) * 100;
   const zone120 = (120 / TOTAL_BAR_DURATION) * 100;
   const zone = getZone(elapsed);
+  const fillColor = getZoneColor(zone);
 
   return (
-    <div style={{ width: "100%", marginTop: 28 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "#9a9aaa", marginBottom: 6, padding: "0 2px" }}>
+    <div className="timer-bar">
+      <div className="timer-bar-labels">
         <span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span><span>2:30</span>
       </div>
-      <div style={{ position: "relative", width: "100%", height: 28, borderRadius: 6, overflow: "hidden", background: "#edeef2" }}>
-        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${zone60}%`, background: "rgba(212,64,85,0.06)" }} />
-        <div style={{ position: "absolute", left: `${zone60}%`, top: 0, bottom: 0, width: `${zone90 - zone60}%`, background: "rgba(196,138,18,0.06)" }} />
-        <div style={{ position: "absolute", left: `${zone90}%`, top: 0, bottom: 0, width: `${zone120 - zone90}%`, background: "rgba(26,157,85,0.1)" }} />
-        <div style={{ position: "absolute", left: `${zone120}%`, top: 0, bottom: 0, right: 0, background: "rgba(212,64,85,0.06)" }} />
+      <div className="timer-bar-track">
         {[zone60, zone90, zone120].map((z, i) => (
-          <div key={i} style={{ position: "absolute", left: `${z}%`, top: 0, bottom: 0, width: 1, background: "rgba(0,0,0,0.08)" }} />
+          <div key={i} className="timer-bar-marker" style={{ left: `${z}%` }} />
         ))}
-        <div style={{
-          position: "absolute", left: 0, top: 0, bottom: 0,
-          width: `${pct}%`, borderRadius: 6,
-          background: getZoneColor(zone),
-          transition: "width 0.2s ease-out",
-        }} />
-        <div style={{
-          position: "absolute", left: `${zone90}%`, right: `${100 - zone120}%`,
-          top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 8, fontFamily: "'JetBrains Mono', monospace", color: "rgba(26,157,85,0.5)",
-          letterSpacing: 1.5, textTransform: "uppercase", pointerEvents: "none", fontWeight: 600,
-        }}>GOAL</div>
+        <div
+          className="timer-bar-fill"
+          style={{ width: `${pct}%`, background: fillColor }}
+        />
+      </div>
+      <div className="timer-bar-goal">
+        {zone === "perfect" ? "Goal" : "\u00A0"}
       </div>
     </div>
   );
@@ -195,19 +184,17 @@ function TimerBar({ elapsed }) {
 
 function SpeakingIndicator() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, marginTop: 36, marginBottom: 12 }}>
-      <div style={{ display: "flex", gap: 6, alignItems: "center", height: 32 }}>
+    <div className="speaking-indicator">
+      <div className="speaking-indicator-bars">
         {[0, 1, 2, 3, 4].map(i => (
-          <div key={i} style={{
-            width: 4, borderRadius: 2, background: "#4a5ae8",
-            animation: `speakBar 1.2s ease-in-out ${i * 0.15}s infinite`,
-          }} />
+          <div
+            key={i}
+            className="speaking-indicator-bar"
+            style={{ animation: `speakBar 1.2s ease-in-out ${i * 0.15}s infinite` }}
+          />
         ))}
       </div>
-      <span style={{
-        fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#8a8a9a",
-        letterSpacing: 1.5, textTransform: "uppercase",
-      }}>Speaking…</span>
+      <span className="speaking-indicator-label">Speaking</span>
     </div>
   );
 }
@@ -215,41 +202,27 @@ function SpeakingIndicator() {
 function HistoryPanel({ history, onClear }) {
   if (history.length === 0) return null;
   return (
-    <div style={{ marginTop: 48, width: "100%", maxWidth: 600 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-        <h3 style={{ margin: 0, fontFamily: "'Source Serif 4', serif", fontSize: 18, color: "#3a3a4a", fontWeight: 600 }}>Session History</h3>
-        <button onClick={onClear} style={{
-          background: "none", border: "1px solid #dcdce4", borderRadius: 6,
-          color: "#8a8a9a", fontSize: 11, padding: "4px 12px", cursor: "pointer",
-          fontFamily: "'JetBrains Mono', monospace",
-        }}>Clear</button>
+    <div className="history">
+      <div className="history-header">
+        <h3 className="history-title">Session History</h3>
+        <button onClick={onClear} className="history-clear-btn">Clear</button>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div className="history-list">
         {history.map((entry, i) => {
           const zone = getZone(entry.elapsed);
+          const isGreen = zone === "perfect";
           return (
-            <div key={i} style={{
-              display: "flex", alignItems: "center", gap: 12, padding: "10px 14px",
-              background: getZoneBg(zone), borderRadius: 8, borderLeft: `3px solid ${getZoneColor(zone)}`,
-            }}>
-              <span style={{
-                fontFamily: "'JetBrains Mono', monospace", fontSize: 15, color: getZoneColor(zone),
-                fontWeight: 600, minWidth: 48,
-              }}>{formatTime(entry.elapsed)}</span>
-              <span style={{
-                fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#5a5a6a",
-                flex: 1, lineHeight: 1.4,
-                overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-              }}>{entry.question}</span>
-              <span style={{
-                fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: getZoneColor(zone),
-                opacity: 0.8, textTransform: "uppercase", letterSpacing: 0.5, flexShrink: 0,
-              }}>{getZoneLabel(zone)}</span>
+            <div key={i} className="history-entry">
+              <span className={`history-time ${isGreen ? "history-time--highlight" : "history-time--muted"}`}>
+                {formatTime(entry.elapsed)}
+              </span>
+              <span className="history-question">{entry.question}</span>
+              <span className="history-zone">{getZoneLabel(zone)}</span>
             </div>
           );
         })}
       </div>
-      <div style={{ marginTop: 14, fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: "#8a8a9a", textAlign: "center" }}>
+      <div className="history-summary">
         {history.filter(h => getZone(h.elapsed) === "perfect").length} / {history.length} in the green zone
       </div>
     </div>
@@ -258,7 +231,7 @@ function HistoryPanel({ history, onClear }) {
 
 export default function TableTopics() {
   const [question, setQuestion] = useState("");
-  const [state, setState] = useState("ready"); // ready -> revealed -> speaking -> done
+  const [state, setState] = useState("ready");
   const [elapsed, setElapsed] = useState(0);
   const [history, setHistory] = useState([]);
   const [usedIndices, setUsedIndices] = useState(new Set());
@@ -311,153 +284,90 @@ export default function TableTopics() {
 
   const zone = getZone(elapsed);
 
-  const btnBase = {
-    padding: "14px 44px", borderRadius: 10, cursor: "pointer",
-    fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600,
-    letterSpacing: 0.3, transition: "transform 0.15s ease",
-  };
-
   return (
-    <div style={{
-      minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center",
-      justifyContent: "flex-start", padding: "48px 24px",
-      background: "linear-gradient(170deg, #f7f7fb 0%, #eef0f5 50%, #f7f7fb 100%)",
-      color: "#2a2a3a", fontFamily: "'DM Sans', sans-serif",
-    }}>
-      <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <div className="app">
+      <div className="main-area">
+        {/* Header */}
+        <div className="header">
+          <div className="header-overline">Impromptu Speaking Practice</div>
+          <h1 className="header-title">Table Topics</h1>
+          <div className="header-rule" />
+        </div>
 
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 40 }}>
-        <h1 style={{
-          fontFamily: "'Source Serif 4', serif", fontSize: 38, fontWeight: 700,
-          margin: 0, letterSpacing: -0.5, color: "#1a1a2e",
-        }}>Table Topics</h1>
-        <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: "#8a8a9a", marginTop: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>
-          Impromptu Speaking Practice
-        </p>
-      </div>
+        {/* Main Card */}
+        <div className="card">
+          {state === "ready" && (
+            <div className="ready-section">
+              <div className="label">Ready for a topic?</div>
+              <button onClick={handleReveal} className="btn btn--primary">
+                Show Question
+              </button>
+            </div>
+          )}
 
-      {/* Main Card */}
-      <div style={{
-        width: "100%", maxWidth: 600, padding: "40px 36px", borderRadius: 16,
-        background: "#fff", border: "1px solid rgba(0,0,0,0.06)", textAlign: "center",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 8px 30px rgba(0,0,0,0.04)",
-        minHeight: 220, display: "flex", flexDirection: "column", justifyContent: "center",
-      }}>
+          {state === "revealed" && (
+            <div className="revealed-section">
+              <div className="label">Your Topic</div>
+              <p className="question">{question}</p>
+              <div className="btn-wrap">
+                <button onClick={handleStart} className="btn btn--primary">
+                  Begin
+                </button>
+              </div>
+            </div>
+          )}
 
-        {state === "ready" && (
-          <div style={{ padding: "20px 0" }}>
-            <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "#9a9aaa", textTransform: "uppercase", letterSpacing: 2, marginBottom: 24 }}>
-              Ready for a topic?
+          {state === "speaking" && (
+            <div className="speaking-section">
+              <div className="label">Your Topic</div>
+              <p className="question">{question}</p>
+              <SpeakingIndicator />
+              <div className="btn-wrap">
+                <button onClick={handleStop} className="btn btn--stop">
+                  Stop
+                </button>
+              </div>
             </div>
-            <button onClick={handleReveal} style={{
-              ...btnBase, border: "none",
-              background: "#1a1a2e", color: "#fff",
-              boxShadow: "0 2px 12px rgba(26,26,46,0.18)",
-            }}
-              onMouseDown={e => e.currentTarget.style.transform = "scale(0.97)"}
-              onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
-            >Show Question</button>
-          </div>
-        )}
+          )}
 
-        {state === "revealed" && (
-          <>
-            <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "#9a9aaa", textTransform: "uppercase", letterSpacing: 2, marginBottom: 18 }}>
-              Your Topic
+          {state === "done" && (
+            <div className="done-section">
+              <div className="label">Your Topic</div>
+              <p className="question question--small question--faded">{question}</p>
+              <TimerBar elapsed={elapsed} />
+              <div className="time-display" style={{ color: getZoneColor(zone) }}>
+                {formatTime(elapsed)}
+              </div>
+              <div className="feedback">
+                {zone === "perfect" ? "Right in the green zone." :
+                 zone === "okay" ? "Good effort \u2014 aim for 1:30 next time." :
+                 zone === "under" ? "A bit short \u2014 try developing your ideas more." :
+                 "A bit long \u2014 practice tightening your message."}
+              </div>
+              <div className="btn-wrap">
+                <button onClick={handleNext} className="btn btn--primary">
+                  Next Question
+                </button>
+              </div>
             </div>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: 22, lineHeight: 1.55, color: "#1a1a2e", margin: 0, fontWeight: 500 }}>
-              {question}
-            </p>
-            <div style={{ marginTop: 32 }}>
-              <button onClick={handleStart} style={{
-                ...btnBase, border: "none",
-                background: "linear-gradient(135deg, #4a5ae8, #5a6af0)", color: "#fff",
-                boxShadow: "0 4px 20px rgba(74,90,232,0.25)",
-              }}
-                onMouseDown={e => e.currentTarget.style.transform = "scale(0.97)"}
-                onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
-              >Start Speaking</button>
-            </div>
-          </>
-        )}
+          )}
+        </div>
 
-        {state === "speaking" && (
-          <>
-            <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "#9a9aaa", textTransform: "uppercase", letterSpacing: 2, marginBottom: 18 }}>
-              Your Topic
-            </div>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: 22, lineHeight: 1.55, color: "#1a1a2e", margin: 0, fontWeight: 500 }}>
-              {question}
-            </p>
-            <SpeakingIndicator />
-            <div style={{ marginTop: 8 }}>
-              <button onClick={handleStop} style={{
-                ...btnBase, background: "rgba(212,64,85,0.05)",
-                border: "2px solid #d44055", color: "#d44055",
-                animation: "pulse 2s ease-in-out infinite",
-              }}>Stop</button>
-            </div>
-          </>
-        )}
-
-        {state === "done" && (
-          <>
-            <div style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "#9a9aaa", textTransform: "uppercase", letterSpacing: 2, marginBottom: 18 }}>
-              Your Topic
-            </div>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: 20, lineHeight: 1.55, color: "#1a1a2e", margin: 0, fontWeight: 500, opacity: 0.5 }}>
-              {question}
-            </p>
-            <TimerBar elapsed={elapsed} />
-            <div style={{
-              fontFamily: "'JetBrains Mono', monospace", fontSize: 54, fontWeight: 600,
-              color: getZoneColor(zone), marginTop: 24, letterSpacing: 2,
-            }}>{formatTime(elapsed)}</div>
-            <div style={{
-              marginTop: 6, fontFamily: "'JetBrains Mono', monospace", fontSize: 13,
-              color: getZoneColor(zone), opacity: 0.85,
-            }}>
-              {zone === "perfect" ? "Perfect! Right in the green zone." :
-               zone === "okay" ? "Good effort — aim for 1:30 next time." :
-               zone === "under" ? "A bit short — try developing your ideas more." :
-               "A bit long — practice tightening your message."}
-            </div>
-            <div style={{ marginTop: 28 }}>
-              <button onClick={handleNext} style={{
-                ...btnBase, border: "none",
-                background: "linear-gradient(135deg, #4a5ae8, #5a6af0)", color: "#fff",
-                boxShadow: "0 4px 20px rgba(74,90,232,0.25)",
-              }}>Next Question</button>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Zone Legend */}
-      {state !== "speaking" && (
-        <div style={{ display: "flex", gap: 16, marginTop: 24, flexWrap: "wrap", justifyContent: "center" }}>
-          {[["under", "< 1:00"], ["okay", "1:00–1:30"], ["perfect", "1:30–2:00 ★"], ["over", "> 2:00"]].map(([z, label]) => (
-            <div key={z} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <div style={{ width: 10, height: 10, borderRadius: 3, background: getZoneColor(z) }} />
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: "#8a8a9a" }}>{label}</span>
+        {/* Zone Legend */}
+        <div className={`zone-legend ${state === "speaking" ? "zone-legend--hidden" : ""}`}>
+          {[["under", "< 1:00"], ["okay", "1:00\u20131:30"], ["perfect", "1:30\u20132:00"], ["over", "> 2:00"]].map(([z, label]) => (
+            <div key={z} className="zone-legend-item">
+              <div
+                className={`zone-legend-dot ${z !== "perfect" ? "zone-legend-dot--round" : ""}`}
+                style={{ background: getZoneColor(z) }}
+              />
+              <span className="zone-legend-label">{label}</span>
             </div>
           ))}
         </div>
-      )}
+      </div>
 
       <HistoryPanel history={history} onClear={() => setHistory([])} />
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(212,64,85,0.25); }
-          50% { box-shadow: 0 0 0 10px rgba(212,64,85,0); }
-        }
-        @keyframes speakBar {
-          0%, 100% { height: 6px; }
-          50% { height: 28px; }
-        }
-      `}</style>
     </div>
   );
 }
