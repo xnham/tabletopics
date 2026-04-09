@@ -2,6 +2,10 @@
 
 Impromptu speaking practice: random prompts and a simple timer with zone feedback.
 
+## About
+
+Use the circled question-mark control in the top-right corner to open the About dialog. It explains what Table Topics is, that the app does not record audio, tips for structuring answers (including OREO), and the size of the prompt database. Press Escape or click the backdrop or × to close.
+
 ## Scripts
 
 - `npm run dev` — start Vite dev server

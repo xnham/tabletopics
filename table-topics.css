@@ -19,6 +19,7 @@
 /* ── Reset & Base ── */
 
 .app {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,6 +29,155 @@
   background: var(--color-bg);
   color: var(--color-text);
   font-family: 'Source Serif 4', Georgia, serif;
+}
+
+/* ── About (help) ── */
+
+.about-open-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.about-open-btn:hover {
+  color: var(--color-text);
+  border-color: color-mix(in srgb, var(--color-text) 22%, var(--color-border));
+  background: color-mix(in srgb, var(--color-text) 3%, var(--color-bg));
+}
+
+.about-open-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.about-icon-svg {
+  display: block;
+}
+
+.about-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: color-mix(in srgb, var(--color-text) 35%, transparent);
+}
+
+.about-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: min(85vh, 640px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  box-shadow: 0 24px 48px color-mix(in srgb, var(--color-text) 12%, transparent);
+}
+
+.about-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.about-close:hover {
+  color: var(--color-text);
+}
+
+.about-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.about-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  padding: 28px 48px 16px 28px;
+  letter-spacing: -0.5px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.about-body {
+  overflow-y: auto;
+  padding: 20px 28px 28px;
+  text-align: left;
+  -webkit-overflow-scrolling: touch;
+}
+
+.about-section {
+  margin-bottom: 22px;
+}
+
+.about-section:last-child {
+  margin-bottom: 0;
+}
+
+.about-heading {
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-text-secondary);
+  margin: 0 0 10px;
+}
+
+.about-body p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text);
+}
+
+.about-list {
+  margin: 0;
+  padding-left: 1.15em;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text);
+}
+
+.about-list li {
+  margin-bottom: 14px;
+}
+
+.about-list li:last-child {
+  margin-bottom: 0;
+}
+
+.about-list strong {
+  font-weight: 600;
 }
 
 .main-area {

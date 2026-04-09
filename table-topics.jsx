@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { QUESTION_TEXTS } from "./table-topics-questions.js";
 import "./table-topics.css";
 
@@ -76,6 +76,127 @@ function SpeakingIndicator() {
   );
 }
 
+function HelpCircleIcon() {
+  return (
+    <svg
+      className="about-icon-svg"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+      <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+  );
+}
+
+function AboutModal({ open, onClose }) {
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = e => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div className="about-backdrop" onClick={onClose} role="presentation">
+      <div
+        className="about-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="about-title"
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          ref={closeRef}
+          type="button"
+          className="about-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <h2 id="about-title" className="about-title">
+          About
+        </h2>
+
+        <div className="about-body">
+          <section className="about-section">
+            <h3 className="about-heading">What is Table Topics?</h3>
+            <p>
+              Table Topics is an impromptu speaking exercise popularized by Toastmasters
+              International. You&apos;re given a random question and challenged to deliver a
+              thoughtful, structured response on the spot — typically in one to two minutes. The
+              goal is to practice thinking on your feet, organizing your ideas quickly, and speaking
+              with clarity and confidence. With daily practice, you&apos;ll notice improvements not
+              just in public speaking, but in everyday conversations, job interviews, and any
+              situation where you need to articulate your thoughts under pressure.
+            </p>
+          </section>
+
+          <section className="about-section">
+            <h3 className="about-heading">Privacy First</h3>
+            <p>
+              This app does not record your voice. Your practice sessions are entirely private —
+              just you and the question.
+            </p>
+          </section>
+
+          <section className="about-section">
+            <h3 className="about-heading">Tips for Better Responses</h3>
+            <ul className="about-list">
+              <li>
+                <strong>Stay on topic if you can, but pivoting is okay.</strong> If you&apos;re
+                drawing a blank, don&apos;t freeze — think of something related and talk about that
+                instead. It&apos;s perfectly fine to shift to a slightly different angle that&apos;s
+                easier to answer. The important thing is to keep speaking with confidence. Most
+                listeners won&apos;t even notice the pivot.
+              </li>
+              <li>
+                <strong>Use the OREO technique.</strong> Structure your answer as{" "}
+                <em>Opinion → Reason → Example(s) → Opinion</em>. Start by stating your position,
+                explain why you hold it, support it with a specific example or story, then restate
+                your opinion to wrap up cleanly.
+              </li>
+              <li>
+                <strong>Be specific.</strong> Vague answers are forgettable. Concrete details, real
+                anecdotes, and vivid examples make your response more compelling and easier to follow.
+              </li>
+            </ul>
+          </section>
+
+          <section className="about-section">
+            <h3 className="about-heading">2,000 Questions and Counting</h3>
+            <p>
+              This app draws from a database of 2,000 questions spanning a wide range of topics, so
+              you&apos;ll rarely see the same prompt twice.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HistoryPanel({ history, onClear }) {
   if (history.length === 0) return null;
   return (
@@ -112,8 +233,11 @@ export default function TableTopics() {
   const [elapsed, setElapsed] = useState(0);
   const [history, setHistory] = useState([]);
   const [usedIndices, setUsedIndices] = useState(new Set());
+  const [aboutOpen, setAboutOpen] = useState(false);
   const startTimeRef = useRef(null);
   const rafRef = useRef(null);
+
+  const closeAbout = useCallback(() => setAboutOpen(false), []);
 
   const pickQuestion = useCallback(() => {
     let available = QUESTION_TEXTS.map((_, i) => i).filter(i => !usedIndices.has(i));
@@ -163,6 +287,18 @@ export default function TableTopics() {
 
   return (
     <div className="app">
+      <button
+        type="button"
+        className="about-open-btn"
+        onClick={() => setAboutOpen(true)}
+        aria-label="About Table Topics"
+        title="About"
+      >
+        <HelpCircleIcon />
+      </button>
+
+      <AboutModal open={aboutOpen} onClose={closeAbout} />
+
       <div className="main-area">
         {/* Header */}
         <div className="header">
