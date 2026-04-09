@@ -287,17 +287,6 @@ export default function TableTopics() {
 
   return (
     <div className="app">
-      <div className="app-brand">
-        <img
-          className="app-brand-logo"
-          src="/tabletopicslogo.png"
-          alt=""
-          width={44}
-          height={44}
-          decoding="async"
-        />
-      </div>
-
       <button
         type="button"
         className="about-open-btn"
