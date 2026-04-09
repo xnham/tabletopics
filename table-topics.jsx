@@ -1,6 +1,9 @@
 import { useState, useRef, useCallback } from "react";
 import "./table-topics.css";
 
+/** Set to true to show the Session History panel in the UI. */
+const SHOW_SESSION_HISTORY = false;
+
 const QUESTIONS = [
   "What is the best piece of advice you've ever received?",
   "If you could have dinner with any historical figure, who would it be and why?",
@@ -366,7 +369,9 @@ export default function TableTopics() {
         </div>
       </div>
 
-      <HistoryPanel history={history} onClear={() => setHistory([])} />
+      {SHOW_SESSION_HISTORY && (
+        <HistoryPanel history={history} onClear={() => setHistory([])} />
+      )}
     </div>
   );
 }

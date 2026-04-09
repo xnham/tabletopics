@@ -2,6 +2,20 @@
 /* Loaded via <link> in index.html:
    Playfair Display, Source Serif 4, IBM Plex Mono */
 
+/* ── Color tokens ──
+   Neutrals: one near-black, one secondary label grey, one muted grey (timers /
+   tertiary UI), shared borders. Accent reserved for primary actions. */
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #121212;
+  --color-text-secondary: #515151;
+  --color-text-muted: #757575;
+  --color-border: #e0e0e0;
+  --color-primary: #385461;
+  --color-on-primary: #faf9f6;
+}
+
 /* ── Reset & Base ── */
 
 .app {
@@ -11,8 +25,8 @@
   align-items: center;
   justify-content: flex-start;
   padding: 24px;
-  background: #FFFFFF;
-  color: #121212;
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: 'Source Serif 4', Georgia, serif;
 }
 
@@ -35,7 +49,7 @@
 .header-overline {
   font-family: 'Helvetica';
   font-size: 12px;
-  color: #515151;
+  color: var(--color-text-secondary);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -47,14 +61,14 @@
   font-weight: 700;
   margin: 0;
   letter-spacing: -1px;
-  color: #121212;
+  color: var(--color-text);
   line-height: 1;
 }
 
 .header-rule {
   width: 80px;
   height: 1px;
-  background: #121212;
+  background: var(--color-text);
   margin: 16px auto 0;
 }
 
@@ -67,9 +81,9 @@
   max-width: 560px;
   padding: 60px 40px 40px;
   text-align: center;
-  border-top: 2px solid #121212;
-  border-bottom: 1px solid #e0e0e0;
-  height: 380px;
+  border-top: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  height: 460px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -82,7 +96,7 @@
 .label {
   font-size: 14px;
   font-family: 'Helvetica';
-  color: #515151;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 2.5px;
 }
@@ -105,7 +119,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 28px;
   line-height: 1.55;
-  color: #121212;
+  color: var(--color-text);
   margin: 0;
   font-weight: 400;
   font-style: italic;
@@ -116,7 +130,7 @@
 }
 
 .question--faded {
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 /* ── Revealed / Speaking States ── */
@@ -157,15 +171,15 @@
 }
 
 .btn--primary {
-  border: 2px solid #385461;
-  background: #385461;
-  color: #faf9f6;
+  border: 2px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .btn--stop {
   background: transparent;
-  border: 1px solid #999;
-  color: #666;
+  border: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
   animation: pulse 2.5s ease-in-out infinite;
 }
 
@@ -181,7 +195,7 @@
   justify-content: space-between;
   font-size: 10px;
   font-family: 'Helvetica';
-  color: #999;
+  color: var(--color-text-muted);
   margin-bottom: 8px;
   padding: 0 2px;
   letter-spacing: 0.5px;
@@ -192,7 +206,7 @@
   width: 100%;
   height: 3px;
   overflow: hidden;
-  background: #e0e0e0;
+  background: var(--color-border);
 }
 
 .timer-bar-marker {
@@ -200,7 +214,7 @@
   top: -2px;
   bottom: -2px;
   width: 1px;
-  background: #bbb;
+  background: color-mix(in srgb, var(--color-text) 28%, var(--color-bg));
 }
 
 .timer-bar-fill {
@@ -217,7 +231,7 @@
   margin-top: 6px;
   font-size: 9px;
   font-family: 'Helvetica';
-  color: #999;
+  color: var(--color-text-muted);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -243,13 +257,13 @@
 .speaking-indicator-bar {
   width: 2px;
   border-radius: 1px;
-  background: #121212;
+  background: var(--color-text);
 }
 
 .speaking-indicator-label {
   font-family: 'Helvetica';
   font-size: 11px;
-  color: #999;
+  color: var(--color-text-muted);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -268,7 +282,7 @@
   margin-top: 8px;
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 15px;
-  color: #666;
+  color: var(--color-text-muted);
   font-style: italic;
 }
 
@@ -304,7 +318,7 @@
 .zone-legend-label {
   font-family: 'Helvetica';
   font-size: 12px;
-  color: #515151;
+  color: var(--color-text-secondary);
   letter-spacing: 0.5px;
 }
 
@@ -321,7 +335,7 @@
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 16px;
-  border-bottom: 1px solid #121212;
+  border-bottom: 1px solid var(--color-text);
   padding-bottom: 8px;
 }
 
@@ -329,7 +343,7 @@
   margin: 0;
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 18px;
-  color: #121212;
+  color: var(--color-text);
   font-weight: 700;
   letter-spacing: -0.3px;
 }
@@ -337,8 +351,8 @@
 .history-clear-btn {
   background: none;
   border: none;
-  border-bottom: 1px solid #999;
-  color: #999;
+  border-bottom: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
   font-size: 11px;
   padding: 0;
   cursor: pointer;
@@ -356,7 +370,7 @@
   align-items: baseline;
   gap: 16px;
   padding: 12px 0;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .history-time {
@@ -367,19 +381,19 @@
 }
 
 .history-time--highlight {
-  color: #121212;
+  color: var(--color-text);
   font-weight: 600;
 }
 
 .history-time--muted {
-  color: #999;
+  color: var(--color-text-muted);
   font-weight: 400;
 }
 
 .history-question {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 14px;
-  color: #444;
+  color: var(--color-text-secondary);
   flex: 1;
   line-height: 1.5;
   overflow: hidden;
@@ -390,7 +404,7 @@
 .history-zone {
   font-family: 'Helvetica';
   font-size: 9px;
-  color: #999;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
   flex-shrink: 0;
@@ -400,7 +414,7 @@
   margin-top: 16px;
   font-family: 'Helvetica';
   font-size: 11px;
-  color: #999;
+  color: var(--color-text-muted);
   text-align: center;
   letter-spacing: 0.5px;
 }
@@ -415,7 +429,7 @@
 
 @keyframes pulse {
   0%, 100% { box-shadow: none; }
-  50% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.04); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-text) 4%, transparent); }
 }
 
 @keyframes speakBar {
