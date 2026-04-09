@@ -14,6 +14,29 @@ The tab icon is `public/favicon.png`. Vite serves files in `public/` at the site
 
 The app uses [Vercel Web Analytics](https://vercel.com/docs/analytics) via `@vercel/analytics`: `<Analytics />` is mounted in `src/main.jsx`. Enable Web Analytics on the Vercel project, deploy, then open the live URL; page views appear in the project’s Analytics tab (give it a minute if nothing shows at first). Local `npm run dev` does not send production analytics. Use an ad blocker–free browser when verifying.
 
+## Google Analytics 4 (optional)
+
+Custom events and engagement timing use [GA4](https://support.google.com/analytics/answer/9304153) via gtag, implemented in `src/analytics.js` and wired from `table-topics.jsx`.
+
+1. In [Google Analytics](https://analytics.google.com/), create or open a property, add a **Web** data stream for your site URL, and copy the **Measurement ID** (`G-XXXXXXXXXX`).
+2. Set `VITE_GA_MEASUREMENT_ID` to that value—for local dev, add a `.env` file (see `.env.example`). On Vercel (or similar), define the same variable in the project Environment Variables and redeploy.
+3. If the variable is empty or unset, no Google script loads and `trackEvent` calls are no-ops.
+
+Reported events (see **Reports → Engagement → Events** in GA4):
+
+| Event name | When it fires |
+|------------|----------------|
+| *(automatic)* `page_view` | First load after gtag config |
+| `show_question` | User taps **Show Question** |
+| `about_open` | User taps the help / question-mark (About) control |
+| `exercise_begin` | User taps **Begin** after seeing a prompt |
+| `exercise_complete` | User taps **Stop** after speaking; includes `duration_ms` (milliseconds) and `time_bucket` (`under` / `okay` / `perfect` / `over`, same zones as the timer UI) |
+| `site_leave` | Tab or window is closed or the user navigates away; sent with `transport_type: beacon` when possible. Includes `linger_seconds` (rounded) and `engagement_time_msec` (time since page load). |
+
+**Tip:** In GA4, use **Configure → Custom definitions** to register event parameters you care about (`linger_seconds`, `duration_ms`, `time_bucket`) as custom dimensions for easier exploration. Event counts for `exercise_begin` vs `exercise_complete` show how often people start vs finish a full run.
+
+Privacy: `anonymize_ip` is enabled in the gtag config. Combine with your own privacy policy / consent strategy if you serve users in regions that require it.
+
 ## Scripts
 
 - `npm run dev` — start Vite dev server

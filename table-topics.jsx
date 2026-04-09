@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { QUESTION_TEXTS } from "./table-topics-questions.js";
+import { trackEvent } from "./src/analytics.js";
 import "./table-topics.css";
 
 /** Set to true to show the Session History panel in the UI. */
@@ -251,6 +252,7 @@ export default function TableTopics() {
   }, [usedIndices]);
 
   const handleReveal = () => {
+    trackEvent("show_question");
     pickQuestion();
     setState("revealed");
     setElapsed(0);
@@ -264,6 +266,7 @@ export default function TableTopics() {
   }, []);
 
   const handleStart = () => {
+    trackEvent("exercise_begin");
     startTimeRef.current = Date.now();
     setState("speaking");
     setElapsed(0);
@@ -273,6 +276,10 @@ export default function TableTopics() {
   const handleStop = () => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     const finalElapsed = Date.now() - startTimeRef.current;
+    trackEvent("exercise_complete", {
+      duration_ms: finalElapsed,
+      time_bucket: getZone(finalElapsed),
+    });
     setElapsed(finalElapsed);
     setState("done");
     setHistory(prev => [{ question, elapsed: finalElapsed }, ...prev]);
@@ -290,7 +297,10 @@ export default function TableTopics() {
       <button
         type="button"
         className="about-open-btn"
-        onClick={() => setAboutOpen(true)}
+        onClick={() => {
+          trackEvent("about_open");
+          setAboutOpen(true);
+        }}
         aria-label="About Table Topics"
         title="About"
       >
