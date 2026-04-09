@@ -8,6 +8,10 @@ Impromptu speaking practice: random prompts and a simple timer with zone feedbac
 - `npm run build` — production build
 - `npm run preview` — preview production build
 
+## Prompts
+
+All impromptu questions live in `table-topics-questions.js`. Edit the `PROMPTS` string array to add or change copy. The module also exports `TABLE_TOPIC_QUESTIONS` (frozen `{ id, text }` objects with stable numeric ids like `tt-001`) and `QUESTION_TEXTS` for the picker.
+
 ## Session History
 
 The Session History panel (`HistoryPanel`) is implemented but hidden by default. To show it, set `SHOW_SESSION_HISTORY` to `true` at the top of `table-topics.jsx`. History state still updates while the panel is hidden.
