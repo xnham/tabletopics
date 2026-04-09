@@ -4,7 +4,11 @@ Impromptu speaking practice: random prompts and a simple timer with zone feedbac
 
 ## About
 
-Use the circled question-mark control in the top-right corner to open the About dialog. It explains what Table Topics is, that the app does not record audio, tips for structuring answers (including OREO), and the size of the prompt database. Press Escape or click the backdrop or × to close.
+Use the question-mark help icon in the top-right corner to open the About dialog. It explains what Table Topics is, that the app does not record audio, tips for structuring answers (including OREO), and the size of the prompt database. Press Escape or click the backdrop or × to close.
+
+## Favicon & logo asset
+
+The tab icon is `public/favicon.png`. The in-app mark in the top-left uses `public/tabletopicslogo.png`. Vite serves everything in `public/` at the site root (`/favicon.png`, `/tabletopicslogo.png`). Update those files and rebuild as needed.
 
 ## Scripts
 
@@ -22,7 +26,7 @@ The Session History panel (`HistoryPanel`) is implemented but hidden by default.
 
 ## Layout
 
-The page shell uses a centered `.main-area` column (header, card, zone legend) with a fixed-height main card (`460px`) for consistent vertical room. The card uses flexbox (`justify-content: center`) so each state’s block—*ready* (prompt + Show Question), *revealed* (Your Topic + Begin), *speaking*, and *done*—is vertically centered between the card’s top and bottom rules. The *done* results view omits the topic label to save vertical space, showing the prompt, timer, and feedback only.
+The app shell shows the logo in a fixed top-left region (`.app-brand`), mirroring the help control on the right. Both use the same inset from the viewport (`--app-chrome-corner`, default 16px) and inner padding (`--app-chrome-pad`, default 8px) so alignment matches. The page shell uses a centered `.main-area` column (header, card, zone legend) with a fixed-height main card (`460px`) for consistent vertical room. The card uses flexbox (`justify-content: center`) so each state’s block—*ready* (prompt + Show Question), *revealed* (Your Topic + Begin), *speaking*, and *done*—is vertically centered between the card’s top and bottom rules. The *done* results view omits the topic label to save vertical space, showing the prompt, timer, and feedback only.
 
 ## Colors
 

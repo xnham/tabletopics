@@ -80,12 +80,12 @@ function HelpCircleIcon() {
   return (
     <svg
       className="about-icon-svg"
-      width="22"
-      height="22"
+      width="34"
+      height="34"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.85"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
@@ -287,6 +287,17 @@ export default function TableTopics() {
 
   return (
     <div className="app">
+      <div className="app-brand">
+        <img
+          className="app-brand-logo"
+          src="/tabletopicslogo.png"
+          alt=""
+          width={44}
+          height={44}
+          decoding="async"
+        />
+      </div>
+
       <button
         type="button"
         className="about-open-btn"
@@ -303,7 +314,7 @@ export default function TableTopics() {
         {/* Header */}
         <div className="header">
           <div className="header-overline">Impromptu Speaking Practice</div>
-          <h1 className="header-title">Table Topics</h1>
+          <h1 className="header-title">table topics</h1>
           <div className="header-rule" />
         </div>
 
