@@ -204,7 +204,7 @@ function AboutModal({ open, onClose }) {
               >
                 Speak Up Cambridge
               </a>{" "}
-              in Cambridge, MA. I'm the kind of person who answers questions with just one word and therefore needs to practice a lot with this app.
+              in Cambridge, MA. I'm the kind of person who answers questions with just one word and therefore needs to practice a lot with this app. You can reach me at <a href="mailto:wendypublicemailaddress@gmail.com">wendypublicemailaddress at gmail dot com</a>.
             </p>
           </section>
         </div>
