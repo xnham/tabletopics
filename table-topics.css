@@ -240,6 +240,11 @@
   .header-title {
     font-size: calc(60px * 0.8);
   }
+
+  .about-dialog {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 /* ── Main Card ── */
