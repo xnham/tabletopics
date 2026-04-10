@@ -192,6 +192,21 @@ function AboutModal({ open, onClose }) {
               you&apos;ll rarely see the same prompt twice.
             </p>
           </section>
+
+          <section className="about-section">
+            <h3 className="about-heading">Who built this?</h3>
+            <p>
+              My name is Wendy. I&apos;m a member of{" "}
+              <a
+                href="https://speakupcambridge.wordpress.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Speak Up Cambridge
+              </a>{" "}
+              in Cambridge, MA. I'm the kind of person who answers questions with just one word and therefore needs to practice a lot with this app.
+            </p>
+          </section>
         </div>
       </div>
     </div>

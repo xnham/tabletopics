@@ -4,7 +4,7 @@ Impromptu speaking practice: random prompts and a simple timer with zone feedbac
 
 ## About
 
-Use the question-mark help icon in the top-right corner to open the About dialog. It explains what Table Topics is, that the app does not record audio, tips for structuring answers (including OREO), and the size of the prompt database. Press Escape or click the backdrop or × to close.
+Use the question-mark help icon in the top-right corner to open the About dialog. It explains what Table Topics is, that the app does not record audio, tips for structuring answers (including OREO), the size of the prompt database, and a short “Who built this?” note at the bottom (with a link to [Speak Up Cambridge](https://speakupcambridge.wordpress.com/) — same color as body text, underlined). Press Escape or click the backdrop or × to close.
 
 While you are speaking (after **Begin**), a short line under the **Stop** button reads: *Nothing is recorded — only your time is measured.* (The footnote uses the class `speaking-footnote` because some cosmetic filter lists hide elements whose class names contain `privacy`.)
 

@@ -162,6 +162,17 @@
   color: var(--color-text);
 }
 
+.about-body a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.about-body a:visited,
+.about-body a:hover {
+  color: var(--color-text);
+}
+
 .about-list {
   margin: 0;
   padding-left: 1.15em;
