@@ -345,10 +345,13 @@ export default function TableTopics() {
               <div className="label">Your Topic</div>
               <p className="question">{question}</p>
               <SpeakingIndicator />
-              <div className="btn-wrap">
+              <div className="btn-wrap btn-wrap--speaking">
                 <button onClick={handleStop} className="btn btn--stop">
                   Stop
                 </button>
+                <p className="speaking-footnote">
+                  This app <b>does not</b> record anything.
+                </p>
               </div>
             </div>
           )}

@@ -6,6 +6,8 @@ Impromptu speaking practice: random prompts and a simple timer with zone feedbac
 
 Use the question-mark help icon in the top-right corner to open the About dialog. It explains what Table Topics is, that the app does not record audio, tips for structuring answers (including OREO), and the size of the prompt database. Press Escape or click the backdrop or × to close.
 
+While you are speaking (after **Begin**), a short line under the **Stop** button reads: *Nothing is recorded — only your time is measured.* (The footnote uses the class `speaking-footnote` because some cosmetic filter lists hide elements whose class names contain `privacy`.)
+
 ## Favicon
 
 The tab icon is `public/favicon.png`. Vite serves files in `public/` at the site root (`/favicon.png`). Replace that file and rebuild as needed.
@@ -53,7 +55,7 @@ The Session History panel (`HistoryPanel`) is implemented but hidden by default.
 
 ## Layout
 
-The app shell places the help control in a fixed top-right region using the viewport inset `--app-chrome-corner` (default 16px) and inner padding `--app-chrome-pad` (default 8px). The page shell uses a centered `.main-area` column (header, card, zone legend) with a fixed-height main card (`460px`) for consistent vertical room. On viewports `768px` wide or narrower, the main heading (`.header-title`, “table topics”) uses `calc(60px * 0.8)`—80% of the desktop `60px` size. The card uses flexbox (`justify-content: center`) so each state’s block—*ready* (prompt + Show Question), *revealed* (Your Topic + Begin), *speaking*, and *done*—is vertically centered between the card’s top and bottom rules. The *done* results view omits the topic label to save vertical space, showing the prompt, timer, and feedback only.
+The app shell places the help control in a fixed top-right region using the viewport inset `--app-chrome-corner` (default 16px) and inner padding `--app-chrome-pad` (default 8px). The page shell uses a centered `.main-area` column (header, card, zone legend) with a fixed-height main card (`460px`) for consistent vertical room. On viewports `768px` wide or narrower, the main heading (`.header-title`, “table topics”) uses `calc(60px * 0.8)`—80% of the desktop `60px` size. The card uses flexbox (`justify-content: safe center`) so each state’s block—*ready* (prompt + Show Question), *revealed* (Your Topic + Begin), *speaking*, and *done*—is vertically centered when it fits; if the content is taller than the card (for example a long prompt plus the speaking UI and footnote under **Stop**), the card scrolls (`overflow-y: auto`) instead of clipping the bottom. The *done* results view omits the topic label to save vertical space, showing the prompt, timer, and feedback only.
 
 ## Colors
 
